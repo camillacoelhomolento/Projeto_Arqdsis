@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.usjt.arqdsis.ProjetoArqdsis.model.Usuario;
 
@@ -103,6 +104,42 @@ public class UsuarioDAO {
 			System.out.print(e1.getStackTrace());
 		}
 		return usuario;
+	}
+	
+	public ArrayList<Usuario> pesquisar(Usuario usuario) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT nome, cpf, email, horarioTrabalho, tipoUsuario FROM usuarios ");
+		
+		if(usuario.getNome().isEmpty() == false && usuario.getCpf().isEmpty()== false){
+			sql.append("where usuarios.nome = ").append("'").append(usuario.getNome()).append("'").append(" and usuarios.cpf= ").append("'").append(usuario.getCpf()).append("'");			
+		}else if(usuario.getNome().isEmpty() == false){
+			sql.append("where usuarios.nome = ").append("'").append(usuario.getNome()).append("'");
+		}else if(usuario.getCpf().isEmpty()== false){
+			sql.append("where usuarios.cpf= ").append("'").append(usuario.getCpf()).append("'");
+		}
+		
+		String sqlSelect = String.valueOf(sql);
+		ArrayList<Usuario> lista = new ArrayList();
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+			try (ResultSet rs = stm.executeQuery();) {
+				if (rs.next()) {
+					usuario.setNome(rs.getString("nome"));
+					usuario.setCpf(rs.getString("cpf"));
+					usuario.setEmail(rs.getString("email"));
+					usuario.setHorarioTrabalho(rs.getString("horarioTrabalho"));
+					usuario.setTipoUsuario(rs.getInt("tipoUsuario"));
+					lista.add(usuario);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
 	}
 
 }

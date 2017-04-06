@@ -16,8 +16,8 @@ import br.usjt.arqdsis.ProjetoArqdsis.service.UsuarioService;
 /**
  * Servlet implementation class ManterClienteController
  */
-@WebServlet("/ManterUsuario.do")
-public class CadastrarUsuarioController extends HttpServlet {
+@WebServlet("/ConsultarUsuario.do")
+public class ConsultarUsuarioController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     /**
@@ -32,37 +32,25 @@ public class CadastrarUsuarioController extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nome = request.getParameter("nome");
-        String user = request.getParameter("usuario");
-        String senha = request.getParameter("senha");
-        String email = request.getParameter("email");
-        String horarioTrabalho = request.getParameter("horarioTrabalho");
-        String perfil = request.getParameter("perfil");
         String cpf = request.getParameter("cpf");
         
-        int p = Integer.parseInt(perfil);
         
         //instanciar o javabean
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
-        usuario.setUsuario(user);
-        usuario.setEmail(email);
-        usuario.setHorarioTrabalho(horarioTrabalho);
         usuario.setCpf(cpf);
-        usuario.setTipoUsuario(p);
-        usuario.setSenha(senha);
-        
-        
+             
         //instanciar o service
         UsuarioService us = new UsuarioService();
-        us.criar(usuario);
-        usuario = us.carregar(usuario.getId());
+       us.consultar(usuario);
        
         //enviar para o jsp
-        request.setAttribute("cadastrarUsuario", usuario);
+        request.setAttribute("consultarUsuario", usuario);
         
-        RequestDispatcher view = request.getRequestDispatcher("CadastrarUsuario.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("ConsultarUsuario.jsp");
         view.forward(request, response);
         
     }
     
 }
+

@@ -1,7 +1,7 @@
 package br.usjt.arqdsis.ProjetoArqdsis.model;
 
 public enum TipoUsuario {
-	ATENDENTE(3), SINDICO(2), FUNCIONARIO(1);
+	ATENDENTE(3), SINDICO(2), FUNCIONARIO(1); 
 
 	private int tipo;
 

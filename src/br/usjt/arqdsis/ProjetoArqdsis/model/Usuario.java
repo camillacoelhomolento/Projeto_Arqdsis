@@ -9,6 +9,18 @@ public class Usuario {
 		return tipoUsuario.getTipo();
 	}
 
+	public String tratarUsuario(){		
+		
+		if(getTipoUsuario() == 1 ){
+			return "Funcionario";							
+		}else if (getTipoUsuario() == 2){
+			return "Síndico";
+		} else{
+			return "Atendente";
+		}
+		
+		
+	}
 	public void setTipoUsuario(int tipoUsuario) {
 
 		if      (tipoUsuario == 1)

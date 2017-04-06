@@ -1,5 +1,7 @@
 package br.usjt.arqdsis.ProjetoArqdsis.service;
 
+import java.util.ArrayList;
+
 import br.usjt.arqdsis.ProjetoArqdsis.dao.UsuarioDAO;
 import br.usjt.arqdsis.ProjetoArqdsis.model.Usuario;
 
@@ -21,6 +23,10 @@ UsuarioDAO usuarioDAO = new UsuarioDAO();
 	
 	public Usuario carregar(int id){
 		return usuarioDAO.carregar(id);
+	}
+	
+	public ArrayList<Usuario> consultar(Usuario usuario){
+		return usuarioDAO.pesquisar(usuario);
 	}
 
 }

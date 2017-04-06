@@ -16,7 +16,7 @@
 
 <body>
 	<%
-		Usuario usuario = (Usuario) request.getAttribute("cadastrarUsuario");
+		Usuario usuario = (Usuario) request.getAttribute("consultarUsuario");
 	%>
 	<!-- Barra superior com os menus de navegação -->
 
@@ -37,14 +37,6 @@
 		<div class="row">
 			<div class="col-md-6">
 				<p>
-					<strong>Usuario</strong>
-				</p>
-				<p>
-					<%=usuario.getUsuario()%>
-				</p>
-			</div>
-			<div class="col-md-6">
-				<p>
 					<strong>E-Mail</strong>
 				</p>
 				<p>
@@ -53,14 +45,6 @@
 			</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<p>
-						<strong>Senha</strong>
-					</p>
-					<p>
-						<%=usuario.getSenha()%>
-					</p>
-				</div>
 				<div class="col-md-6">
 					<p>
 						<strong>Horario de Trabalho</strong>
@@ -89,7 +73,7 @@
 			<hr />
 			<div id="actions" class="row">
 				<div class="col-md-12">
-					<a href="CadastrarUsuario.html" class="btn btn-default">Voltar</a>
+					<a href="ConsultarUsuario.html" class="btn btn-default">Voltar</a>
 				</div>
 			</div>
 		</div>
