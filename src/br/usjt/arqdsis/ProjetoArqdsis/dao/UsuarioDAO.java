@@ -105,26 +105,32 @@ public class UsuarioDAO {
 		}
 		return usuario;
 	}
-	
+
 	public ArrayList<Usuario> pesquisar(Usuario usuario) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT nome, cpf, email, horarioTrabalho, tipoUsuario FROM usuarios ");
-		
-		if(usuario.getNome().isEmpty() == false && usuario.getCpf().isEmpty()== false){
-			sql.append("where usuarios.nome = ").append("'").append(usuario.getNome()).append("'").append(" and usuarios.cpf= ").append("'").append(usuario.getCpf()).append("'");			
-		}else if(usuario.getNome().isEmpty() == false){
-			sql.append("where usuarios.nome = ").append("'").append(usuario.getNome()).append("'");
-		}else if(usuario.getCpf().isEmpty()== false){
-			sql.append("where usuarios.cpf= ").append("'").append(usuario.getCpf()).append("'");
-		}
-		
-		String sqlSelect = String.valueOf(sql);
 		ArrayList<Usuario> lista = new ArrayList();
+
+		sql.append("SELECT id, nome, cpf, email, horarioTrabalho, tipoUsuario FROM usuarios ");
+		if (usuario.getNome() != null && usuario.getCpf() != null) {
+			if (usuario.getNome().isEmpty() == false && usuario.getCpf().isEmpty() == false) {
+				sql.append("where usuarios.nome = ").append("'").append(usuario.getNome()).append("'")
+						.append(" and usuarios.cpf= ").append("'").append(usuario.getCpf()).append("'");
+			} else if (usuario.getNome().isEmpty() == false) {
+				sql.append("where usuarios.nome = ").append("'").append(usuario.getNome()).append("'");
+			} else if (usuario.getCpf().isEmpty() == false) {
+				sql.append("where usuarios.cpf= ").append("'").append(usuario.getCpf()).append("'");
+			}
+			
+		}
+
+		String sqlSelect = String.valueOf(sql);
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			try (ResultSet rs = stm.executeQuery();) {
-				if (rs.next()) {
+				while (rs.next()) {
+					usuario = new Usuario();
+					usuario.setId(rs.getInt("id"));
 					usuario.setNome(rs.getString("nome"));
 					usuario.setCpf(rs.getString("cpf"));
 					usuario.setEmail(rs.getString("email"));
@@ -132,7 +138,7 @@ public class UsuarioDAO {
 					usuario.setTipoUsuario(rs.getInt("tipoUsuario"));
 					lista.add(usuario);
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

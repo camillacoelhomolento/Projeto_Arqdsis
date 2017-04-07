@@ -18,14 +18,14 @@ public class EmpresaTest {
 		System.out.println("setup");
 		empresa = new Empresa();
 		empresa.setId(id);
-		empresa.setRasaoSocial("Batista Cepelos");
+		empresa.setRazaoSocial("Batista Cepelos");
 		empresa.setHorarioFuncionamento("09:00 as 19:00");
 		empresa.setHorarioAr("09:00 as 19:00");
 		empresa.setConjuntos(9);
 		empresa.setTemperaturaPadrao(23);
 		copia = new Empresa();
 		copia.setId(id);
-		copia.setRasaoSocial("Batista Cepelos");
+		copia.setRazaoSocial("Batista Cepelos");
 		copia.setHorarioFuncionamento("09:00 as 19:00");
 		copia.setHorarioAr("09:00 as 19:00");
 		copia.setConjuntos(9);
@@ -42,7 +42,7 @@ public class EmpresaTest {
 		//para funcionar o empresa 1 deve ter sido carregado no banco por fora
 		empresa = new Empresa();
 		empresa.setId(id);
-		empresa.setRasaoSocial("Batista Cepelos");
+		empresa.setRazaoSocial("Batista Cepelos");
 		empresa.setHorarioFuncionamento("09:00 as 19:00");
 		empresa.setHorarioAr("09:00 as 19:00");
 		empresa.setConjuntos(9);
@@ -64,8 +64,8 @@ public class EmpresaTest {
 	@Test
 	public void test02Atualizar() {
 		System.out.println("atualizar");
-		empresa.setRasaoSocial("999999");
-		copia.setRasaoSocial("999999");		
+		empresa.setRazaoSocial("999999");
+		copia.setRazaoSocial("999999");		
 		empresaService.atualizar(empresa);
 		empresa = empresaService.carregar(empresa.getId());
 		assertEquals("testa atualizacao", empresa, copia);
@@ -75,7 +75,7 @@ public class EmpresaTest {
 	public void test03Excluir() {
 		System.out.println("excluir");
 		copia.setId(-1);
-		copia.setRasaoSocial(null);
+		copia.setRazaoSocial(null);
 		copia.setHorarioFuncionamento(null);
 		copia.setHorarioAr(null);
 		copia.setConjuntos((Integer) null);

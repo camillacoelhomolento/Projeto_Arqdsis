@@ -1,7 +1,7 @@
 package br.usjt.arqdsis.ProjetoArqdsis.model;
 
 public class Empresa {
-	private String CNPJ, rasaoSocial, horarioFuncionamento, horarioAr;
+	private String CNPJ, razaoSocial, horarioFuncionamento, horarioAr;
 	private int conjuntos, temperaturaPadrao, id;
 	
 	public String getCNPJ() {
@@ -10,11 +10,11 @@ public class Empresa {
 	public void setCNPJ(String cNPJ) {
 		CNPJ = cNPJ;
 	}
-	public String getRasaoSocial() {
-		return rasaoSocial;
+	public String getRazaoSocial() {
+		return razaoSocial;
 	}
-	public void setRasaoSocial(String rasaoSocial) {
-		this.rasaoSocial = rasaoSocial;
+	public void setRazaoSocial(String rasaoSocial) {
+		this.razaoSocial = rasaoSocial;
 	}
 	public String getHorarioFuncionamento() {
 		return horarioFuncionamento;

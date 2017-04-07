@@ -42,10 +42,9 @@ public class ConsultarUsuarioController extends HttpServlet {
              
         //instanciar o service
         UsuarioService us = new UsuarioService();
-       us.consultar(usuario);
        
         //enviar para o jsp
-        request.setAttribute("consultarUsuario", usuario);
+        request.setAttribute("consultarUsuario", us.consultar(usuario));
         
         RequestDispatcher view = request.getRequestDispatcher("ConsultarUsuario.jsp");
         view.forward(request, response);

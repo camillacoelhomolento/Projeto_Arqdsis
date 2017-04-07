@@ -12,17 +12,17 @@ import br.usjt.arqdsis.ProjetoArqdsis.model.Empresa;
 public class EmpresaDAO {
 
 	public int criar(Empresa empresa) {
-		String sqlInsert = "INSERT INTO empresa(CNPJ, rasaoSocial, horarioFuncionamento, temperaturaPadao, horarioAr, conjuntos ) VALUES (?, ?, ?, ?, ?, ?)";
+		String sqlInsert = "INSERT INTO empresas(CNPJ, razaoSocial, horarioFuncionamento, temperaturaPadao, horarioAr, idConjunto ) VALUES (?, ?, ?, ?, ?, ?)";
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 			stm.setString(1, empresa.getCNPJ());
-			stm.setString(2, empresa.getRasaoSocial());
-			stm.setLong(3, empresa.getConjuntos());
-			stm.setLong(4, empresa.getTemperaturaPadrao());
-			stm.setString(5, empresa.getHorarioFuncionamento());
-			stm.setString(6, empresa.getHorarioFuncionamento());
-			stm.setString(7, empresa.getHorarioAr());
+			stm.setString(2, empresa.getRazaoSocial());
+			stm.setString(3, empresa.getHorarioFuncionamento());
+			stm.setInt(4, empresa.getTemperaturaPadrao());
+			stm.setString(5, empresa.getHorarioAr());
+			stm.setInt(6, empresa.getConjuntos());
+			
 			stm.execute();
 			String sqlQuery = "SELECT LAST_INSERT_ID()";
 			try (PreparedStatement stm2 = conn.prepareStatement(sqlQuery); ResultSet rs = stm2.executeQuery();) {
@@ -39,12 +39,12 @@ public class EmpresaDAO {
 	}
 
 	public void atualizar(Empresa empresa) {
-		String sqlUpdate = "UPDATE empresa SET CNPJ=?, rasaoSocial=?, horarioFuncionamento=?, temperaturaPadao=?, horarioAr=?, conjuntos=? WHERE id =?";
+		String sqlUpdate = "UPDATE empresas SET CNPJ=?, razaoSocial=?, horarioFuncionamento=?, temperaturaPadao=?, horarioAr=?, idConjunto=? WHERE id =?";
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
 			stm.setString(1, empresa.getCNPJ());
-			stm.setString(2, empresa.getRasaoSocial());
+			stm.setString(2, empresa.getRazaoSocial());
 			stm.setString(3, empresa.getHorarioFuncionamento());
 			stm.setLong(4, empresa.getTemperaturaPadrao());
 			stm.setString(5, empresa.getHorarioAr());
@@ -57,7 +57,7 @@ public class EmpresaDAO {
 	}
 
 	public void excluir(int id) {
-		String sqlDelete = "DELETE FROM empresa WHERE id = ?";
+		String sqlDelete = "DELETE FROM empresas WHERE id = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
@@ -71,7 +71,7 @@ public class EmpresaDAO {
 	public Empresa carregar(int id) {
 		Empresa empresa = new Empresa();
 		empresa.setId(id);
-		String sqlSelect = "SELECT CNPJ, rasaoSocial, horarioFuncionamento, temperaturaPadao, horarioAr, conjuntos WHERE id = ?";
+		String sqlSelect = "SELECT CNPJ, razaoSocial, horarioFuncionamento, temperaturaPadao, horarioAr, idConjunto FROM empresas WHERE empresas.id = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
@@ -79,15 +79,15 @@ public class EmpresaDAO {
 			try (ResultSet rs = stm.executeQuery();) {
 				if (rs.next()) {
 					empresa.setCNPJ(rs.getString("CNPJ"));
-					empresa.setRasaoSocial(rs.getString("Rasão Social"));
-					empresa.setHorarioFuncionamento(rs.getString("Horario de Funcionamento"));
-					empresa.setTemperaturaPadrao(rs.getInt("Temperatura Padrão"));
-					empresa.setHorarioAr(rs.getString("Horario Ar"));
-					empresa.setConjuntos(rs.getInt("Conjunto"));
+					empresa.setRazaoSocial(rs.getString("razaoSocial"));
+					empresa.setHorarioFuncionamento(rs.getString("horarioFuncionamento"));
+					empresa.setTemperaturaPadrao(rs.getInt("temperaturaPadao"));
+					empresa.setHorarioAr(rs.getString("horarioAr"));
+					empresa.setConjuntos(rs.getInt("idConjunto"));
 				} else {
 					empresa.setId(-1);
 					empresa.setCNPJ(null);
-					empresa.setRasaoSocial(null);
+					empresa.setRazaoSocial(null);
 					empresa.setHorarioFuncionamento(null);
 					empresa.setTemperaturaPadrao((Integer) null);
 					empresa.setHorarioAr(null);
