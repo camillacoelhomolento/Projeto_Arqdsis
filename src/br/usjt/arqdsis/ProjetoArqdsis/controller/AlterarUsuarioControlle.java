@@ -16,22 +16,37 @@ import br.usjt.arqdsis.ProjetoArqdsis.service.UsuarioService;
 /**
  * Servlet implementation class ManterClienteController
  */
-@WebServlet("/ManterUsuario.do")
-public class CadastrarUsuarioController extends HttpServlet {
+@WebServlet("/AlterarUsuario.do")
+public class AlterarUsuarioControlle extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+    	String idtexto = request.getParameter("id");
+        
+        int id = Integer.parseInt(idtexto);
+        //instanciar o javabean
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+             
+        //instanciar o service
+        UsuarioService us = new UsuarioService();
+       
+        //enviar para o jsp
+        request.setAttribute("alterarUsuario", us.carregar(usuario.getId()));
+        
+        RequestDispatcher view = request.getRequestDispatcher("AlterarUsuario.jsp");
+        view.forward(request, response);
     }
     
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String nome = request.getParameter("nome");
+    	String idd = request.getParameter("id");
+    	String nome = request.getParameter("nome");
         String user = request.getParameter("usuario");
         String senha = request.getParameter("senha");
         String email = request.getParameter("email");
@@ -40,9 +55,12 @@ public class CadastrarUsuarioController extends HttpServlet {
         String cpf = request.getParameter("cpf");
         
         int p = Integer.parseInt(perfil);
+        int id = Integer.parseInt(idd);
+
         
         //instanciar o javabean
         Usuario usuario = new Usuario();
+        usuario.setId(id);
         usuario.setNome(nome);
         usuario.setUsuario(user);
         usuario.setEmail(email);
@@ -50,19 +68,19 @@ public class CadastrarUsuarioController extends HttpServlet {
         usuario.setCpf(cpf);
         usuario.setTipoUsuario(p);
         usuario.setSenha(senha);
-        
-        
+             
         //instanciar o service
         UsuarioService us = new UsuarioService();
-        us.criar(usuario);
-        
+        us.atualizar(usuario);
+
        
         //enviar para o jsp
-        request.setAttribute("cadastrarUsuario",  us.carregar(usuario.getId()));
+        request.setAttribute("confirmacaoAlteracaoUsuario",  us.carregarId(usuario));
         
-        RequestDispatcher view = request.getRequestDispatcher("CadastrarUsuario.jsp");
-        view.forward(request, response);
+       RequestDispatcher view = request.getRequestDispatcher("ConfirmacaoAlteracaoUsuario.jsp");
+       view.forward(request, response);
         
     }
     
 }
+

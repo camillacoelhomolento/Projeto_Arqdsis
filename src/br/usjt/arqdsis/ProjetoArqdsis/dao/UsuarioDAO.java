@@ -71,13 +71,52 @@ public class UsuarioDAO {
 	public Usuario carregar(int id) {
 		Usuario usuario = new Usuario();
 		usuario.setId(id);
-		String sqlSelect = "SELECT nome, cpf, email, login, senha, horarioTrabalho, tipoUsuario FROM usuarios WHERE usuarios.id = ?";
+		String sqlSelect = "SELECT id, nome, cpf, email, login, senha, horarioTrabalho, tipoUsuario FROM usuarios WHERE usuarios.id = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, usuario.getId());
 			try (ResultSet rs = stm.executeQuery();) {
 				if (rs.next()) {
+					usuario.setId(rs.getInt("id"));
+					usuario.setNome(rs.getString("nome"));
+					usuario.setCpf(rs.getString("cpf"));
+					usuario.setEmail(rs.getString("email"));
+					usuario.setUsuario(rs.getString("login"));
+					usuario.setSenha(rs.getString("senha"));
+					usuario.setHorarioTrabalho(rs.getString("horarioTrabalho"));
+					usuario.setTipoUsuario(rs.getInt("tipoUsuario"));
+
+				} else {
+					usuario.setId(-1);
+					usuario.setNome(null);
+					usuario.setCpf(null);
+					usuario.setEmail(null);
+					usuario.setUsuario(null);
+					usuario.setSenha(null);
+					usuario.setHorarioTrabalho(null);
+					usuario.setTipoUsuario(-1); // (verificar)
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return usuario;
+	}
+	
+	public Usuario carregarId(Usuario usuario) {
+	
+		String sqlSelect = "SELECT id, nome, cpf, email, login, senha, horarioTrabalho, tipoUsuario FROM usuarios WHERE usuarios.id = ?";
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+			stm.setInt(1, usuario.getId());
+			try (ResultSet rs = stm.executeQuery();) {
+				if (rs.next()) {
+					usuario.setId(rs.getInt("id"));
 					usuario.setNome(rs.getString("nome"));
 					usuario.setCpf(rs.getString("cpf"));
 					usuario.setEmail(rs.getString("email"));
@@ -107,23 +146,10 @@ public class UsuarioDAO {
 	}
 
 	public ArrayList<Usuario> pesquisar(Usuario usuario) {
-		StringBuilder sql = new StringBuilder();
 		ArrayList<Usuario> lista = new ArrayList();
 
-		sql.append("SELECT id, nome, cpf, email, horarioTrabalho, tipoUsuario FROM usuarios ");
-		if (usuario.getNome() != null && usuario.getCpf() != null) {
-			if (usuario.getNome().isEmpty() == false && usuario.getCpf().isEmpty() == false) {
-				sql.append("where usuarios.nome = ").append("'").append(usuario.getNome()).append("'")
-						.append(" and usuarios.cpf= ").append("'").append(usuario.getCpf()).append("'");
-			} else if (usuario.getNome().isEmpty() == false) {
-				sql.append("where usuarios.nome = ").append("'").append(usuario.getNome()).append("'");
-			} else if (usuario.getCpf().isEmpty() == false) {
-				sql.append("where usuarios.cpf= ").append("'").append(usuario.getCpf()).append("'");
-			}
-			
-		}
+		String sqlSelect = "SELECT id, nome, cpf, email, horarioTrabalho, tipoUsuario FROM usuarios ";
 
-		String sqlSelect = String.valueOf(sql);
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
@@ -148,4 +174,94 @@ public class UsuarioDAO {
 		return lista;
 	}
 
+	public ArrayList<Usuario> pesquisarPorNome(Usuario usuario) {
+		ArrayList<Usuario> lista = new ArrayList();
+
+		String sqlSelect = "SELECT id, nome, cpf, email, horarioTrabalho, tipoUsuario FROM usuarios where usuarios.nome= ? ";
+
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+			stm.setString(1, usuario.getNome());
+			try (ResultSet rs = stm.executeQuery();) {
+				while (rs.next()) {
+					usuario = new Usuario();
+					usuario.setId(rs.getInt("id"));
+					usuario.setNome(rs.getString("nome"));
+					usuario.setCpf(rs.getString("cpf"));
+					usuario.setEmail(rs.getString("email"));
+					usuario.setHorarioTrabalho(rs.getString("horarioTrabalho"));
+					usuario.setTipoUsuario(rs.getInt("tipoUsuario"));
+					lista.add(usuario);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
+	}
+
+	public ArrayList<Usuario> pesquisarPorCPF(Usuario usuario) {
+		ArrayList<Usuario> lista = new ArrayList();
+
+		String sqlSelect = "SELECT id, nome, cpf, email, horarioTrabalho, tipoUsuario FROM usuarios where usuarios.cpf= ? ";
+
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+			stm.setString(1, usuario.getCpf());
+			try (ResultSet rs = stm.executeQuery();) {
+				while (rs.next()) {
+					usuario = new Usuario();
+					usuario.setId(rs.getInt("id"));
+					usuario.setNome(rs.getString("nome"));
+					usuario.setCpf(rs.getString("cpf"));
+					usuario.setEmail(rs.getString("email"));
+					usuario.setHorarioTrabalho(rs.getString("horarioTrabalho"));
+					usuario.setTipoUsuario(rs.getInt("tipoUsuario"));
+					lista.add(usuario);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
+	}
+
+	public ArrayList<Usuario> pesquisarTudoPreenxido(Usuario usuario) {
+		ArrayList<Usuario> lista = new ArrayList();
+
+		String sqlSelect = "SELECT id, nome, cpf, email, horarioTrabalho, tipoUsuario FROM usuarios where usuarios.cpf=? and usuarios.nome=? ";
+
+		// usando o try with resources do Java 7, que fecha o que abriu
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+				stm.setString(1, usuario.getCpf());
+				stm.setString(2, usuario.getNome());
+			try (ResultSet rs = stm.executeQuery();) {
+				while (rs.next()) {
+					usuario = new Usuario();
+					usuario.setId(rs.getInt("id"));
+					usuario.setNome(rs.getString("nome"));
+					usuario.setCpf(rs.getString("cpf"));
+					usuario.setEmail(rs.getString("email"));
+					usuario.setHorarioTrabalho(rs.getString("horarioTrabalho"));
+					usuario.setTipoUsuario(rs.getInt("tipoUsuario"));
+					lista.add(usuario);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		return lista;
+	}
 }

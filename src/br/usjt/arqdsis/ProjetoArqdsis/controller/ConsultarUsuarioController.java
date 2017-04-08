@@ -14,7 +14,7 @@ import br.usjt.arqdsis.ProjetoArqdsis.service.UsuarioService;
 
 
 /**
- * Servlet implementation class ManterClienteController
+ * Servlet implementation class ManterClienteControllerh
  */
 @WebServlet("/ConsultarUsuario.do")
 public class ConsultarUsuarioController extends HttpServlet {
