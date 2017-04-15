@@ -1,6 +1,7 @@
 package br.usjt.arqdsis.ProjetoArqdsis.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,9 +43,11 @@ public class ConsultarUsuarioController extends HttpServlet {
              
         //instanciar o service
         UsuarioService us = new UsuarioService();
+		List<Usuario> lista = us.consultar(usuario);
+
        
         //enviar para o jsp
-        request.setAttribute("consultarUsuario", us.consultar(usuario));
+        request.setAttribute("consultarUsuario", lista);
         
         RequestDispatcher view = request.getRequestDispatcher("ConsultarUsuario.jsp");
         view.forward(request, response);

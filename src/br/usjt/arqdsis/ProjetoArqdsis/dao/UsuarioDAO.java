@@ -56,7 +56,7 @@ public class UsuarioDAO {
 		}
 	}
 
-	public void excluir(int id) {
+	public String excluir(int id) {
 		String sqlDelete = "DELETE FROM usuarios WHERE id = ?";
 		// usando o try with resources do Java 7, que fecha o que abriu
 		try (Connection conn = ConnectionFactory.obtemConexao();
@@ -66,6 +66,8 @@ public class UsuarioDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return "Excluido com Sucesso";
+		
 	}
 
 	public Usuario carregar(int id) {

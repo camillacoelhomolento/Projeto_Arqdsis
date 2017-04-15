@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import=" br.usjt.arqdsis.ProjetoArqdsis.model.Usuario"%><!DOCTYPE html>
+<%@page import=" br.usjt.arqdsis.ProjetoArqdsis.model.Usuario"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
@@ -120,8 +122,9 @@
             <hr />
             <div id="actions" class="row">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary" name="acao" value="Criar">Salvar</button>
-                    <a href="ConsultarUsuario.jsp" class="btn btn-default">Cancelar</a>
+                    <button type="submit" class="btn btn-primary" name="Criar" value="Criar">Salvar</button>
+                    <button type="submit" class="btn btn-primary" name="Excluir" value="Excluir">Excluir</button>
+                    <a href="ConsultarUsuario.do" class="btn btn-default">Cancelar</a>
                 </div>
             </div>
         </form>

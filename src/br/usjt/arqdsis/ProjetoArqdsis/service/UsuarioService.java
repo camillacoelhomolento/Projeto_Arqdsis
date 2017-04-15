@@ -16,8 +16,8 @@ public class UsuarioService {
 		usuarioDAO.atualizar(usuario);
 	}
 
-	public void excluir(int id) {
-		usuarioDAO.excluir(id);
+	public String excluir(int id) {
+		return usuarioDAO.excluir(id);
 	}
 
 	public Usuario carregar(int id) {

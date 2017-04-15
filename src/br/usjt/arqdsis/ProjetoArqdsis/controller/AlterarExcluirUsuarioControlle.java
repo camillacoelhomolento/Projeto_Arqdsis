@@ -17,7 +17,7 @@ import br.usjt.arqdsis.ProjetoArqdsis.service.UsuarioService;
  * Servlet implementation class ManterClienteController
  */
 @WebServlet("/AlterarUsuario.do")
-public class AlterarUsuarioControlle extends HttpServlet {
+public class AlterarExcluirUsuarioControlle extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     /**
@@ -45,6 +45,9 @@ public class AlterarUsuarioControlle extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	if(request.getParameter("Criar") != null){ // alterando Usuario
+    	
     	String idd = request.getParameter("id");
     	String nome = request.getParameter("nome");
         String user = request.getParameter("usuario");
@@ -79,8 +82,31 @@ public class AlterarUsuarioControlle extends HttpServlet {
         
        RequestDispatcher view = request.getRequestDispatcher("ConfirmacaoAlteracaoUsuario.jsp");
        view.forward(request, response);
+       
+    	}else{ // excluindo usuario
+    		
+    		String idtexto = request.getParameter("id");
+            
+            int id = Integer.parseInt(idtexto);
+            //instanciar o javabean
+            Usuario usuario = new Usuario();
+            usuario.setId(id);
+                 
+            //instanciar o service
+            UsuarioService us = new UsuarioService();
+            
+           
+            //enviar para o jsp
+            request.setAttribute("confirmacaoExclusaoUsuario", us.excluir(usuario.getId()));
+            
+            RequestDispatcher view = request.getRequestDispatcher("ConfirmacaoExclusaoUsuario.jsp");
+            view.forward(request, response);
+        }
+        
+    		
+    		
+    	}
         
     }
     
-}
 
