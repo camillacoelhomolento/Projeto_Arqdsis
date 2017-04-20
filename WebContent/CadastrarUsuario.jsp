@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page import="br.usjt.arqdsis.ProjetoArqdsis.model.Usuario"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,21 +14,21 @@
 
 <body>
 	<%
-		Usuario usuario = (Usuario) request.getAttribute("cadastrarUsuario");
+		//Usuario usuario = (Usuario) request.getAttribute("cadastrarUsuario");
 	%>
 	<!-- Barra superior com os menus de navegação -->
 
 	<!-- Container Principal -->
 	<div id="main" class="container">
 		<h3 class="page-header">
-			Visualizar Usuario #<%=usuario.getId()%></h3>
+			Visualizar Usuario #${cadastrarUsuario.getId()}</h3>
 		<div class="row">
 			<div class="col-md-12">
 				<p>
 					<strong>Nome</strong>
 				</p>
 				<p>
-					<%=usuario.getNome()%>
+					${cadastrarUsuario.getNome()}
 				</p>
 			</div>
 		</div>
@@ -40,7 +38,7 @@
 					<strong>Usuario</strong>
 				</p>
 				<p>
-					<%=usuario.getUsuario()%>
+					${cadastrarUsuario.getUsuario()}
 				</p>
 			</div>
 			<div class="col-md-6">
@@ -48,7 +46,7 @@
 					<strong>E-Mail</strong>
 				</p>
 				<p>
-					<%=usuario.getEmail()%>
+					${cadastrarUsuario.getEmail()}
 				</p>
 			</div>
 			</div>
@@ -58,7 +56,7 @@
 						<strong>Senha</strong>
 					</p>
 					<p>
-						<%=usuario.getSenha()%>
+						${cadastrarUsuario.getSenha()}
 					</p>
 				</div>
 				<div class="col-md-6">
@@ -66,7 +64,7 @@
 						<strong>Horario de Trabalho</strong>
 					</p>
 					<p>
-						<%=usuario.getHorarioTrabalho()%>
+						${cadastrarUsuario.getHorarioTrabalho()}
 					</p>
 				</div>
 				<div class="col-md-12">
@@ -74,7 +72,7 @@
 						<strong>CPF</strong>
 					</p>
 					<p>
-						<%=usuario.getCpf()%>
+						${cadastrarUsuario.getCpf()}
 					</p>
 				</div>
 				<div class="col-md-12">
@@ -82,7 +80,7 @@
 						<strong>Perfil</strong>
 					</p>
 					<p>									
-						<%= usuario.tratarUsuario() %>
+						${ cadastrarUsuario.tratarUsuario() }
 					</p>
 				</div>
 			</div>

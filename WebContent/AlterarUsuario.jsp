@@ -48,8 +48,7 @@
             <!-- area de campos do form -->
             <div class="row">
                 <div class="form-group col-md-1">
-                    <label for="nome">ID</label>
-                    <input type="number" class="form-control" name="id" id="id"  required maxlength="100"  value= "<%=usuario.getId()%>">
+                    <input type="hidden" class="form-control" name="id" id="id"  required maxlength="100"  value= "<%=usuario.getId()%>">
                 </div>
             </div>
             <div class="row">
@@ -88,7 +87,6 @@
 	            <div class="form-group col-md-6">
 	                <label for="nome">Perfil</label>
 	 				 <select class="form-control" name= "perfil" id="perfil" required>
-	 				 	  <option value=0> </option>
 	 				 	  <option value=1 <%
 	 				 	  
 	 				 	  if(usuario.getTipoUsuario()==1){

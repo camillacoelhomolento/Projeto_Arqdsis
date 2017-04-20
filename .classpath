@@ -11,5 +11,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
 	<classpathentry kind="lib" path="C:/Users/Camilla/workspace/Projeto_Arqdsis/mysql-connector-java-5.1.30.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Camilla/workspace/Projeto_Arqdsis/WebContent/META-INF/javax.servlet.jsp.jstl-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Camilla/workspace/Projeto_Arqdsis/WebContent/META-INF/javax.servlet.jsp.jstl-api-1.2.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
