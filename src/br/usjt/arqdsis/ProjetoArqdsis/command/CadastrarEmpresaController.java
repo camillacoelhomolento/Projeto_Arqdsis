@@ -1,4 +1,4 @@
-package br.usjt.arqdsis.ProjetoArqdsis.controller;
+package br.usjt.arqdsis.ProjetoArqdsis.command;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
