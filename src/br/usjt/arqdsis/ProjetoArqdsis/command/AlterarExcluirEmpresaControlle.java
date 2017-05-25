@@ -17,7 +17,7 @@ import br.usjt.arqdsis.ProjetoArqdsis.service.EmpresaService;
  * Servlet implementation class ManterClienteController
  */
 @WebServlet("/AlterarEmpresa.do")
-public class AlterarExcluirEmpresaControlle extends HttpServlet {
+public class AlterarExcluirEmpresaControlle extends HttpServlet implements Command {
     private static final long serialVersionUID = 1L;
     
     /**
@@ -101,6 +101,13 @@ public class AlterarExcluirEmpresaControlle extends HttpServlet {
     		
     		
     	}
+
+	@Override
+	public void executar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
         
     }
     

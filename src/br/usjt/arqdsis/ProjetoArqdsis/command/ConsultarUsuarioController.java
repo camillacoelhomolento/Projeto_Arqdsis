@@ -18,7 +18,7 @@ import br.usjt.arqdsis.ProjetoArqdsis.service.UsuarioService;
  * Servlet implementation class ManterClienteControllerh
  */
 @WebServlet("/ConsultarUsuario.do")
-public class ConsultarUsuarioController extends HttpServlet {
+public class ConsultarUsuarioController extends HttpServlet implements Command {
     private static final long serialVersionUID = 1L;
     
     /**
@@ -53,6 +53,13 @@ public class ConsultarUsuarioController extends HttpServlet {
         view.forward(request, response);
         
     }
+
+	@Override
+	public void executar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
     
 }
 

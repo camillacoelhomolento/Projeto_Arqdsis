@@ -14,7 +14,7 @@ import br.usjt.arqdsis.ProjetoArqdsis.service.EmpresaService;
  * Servlet implementation class ManterEmpresaController
  */
 @WebServlet("/ManterEmpresa.do")
-public class CadastrarEmpresaController extends HttpServlet {
+public class CadastrarEmpresaController extends HttpServlet implements Command {
 
 	private static final long serialVersionUID = 1L;
 
@@ -59,5 +59,12 @@ public class CadastrarEmpresaController extends HttpServlet {
 
 		RequestDispatcher view = request.getRequestDispatcher("CadastrarEmpresa.jsp");
 		view.forward(request, response);
+	}
+
+	@Override
+	public void executar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
 	}
 }

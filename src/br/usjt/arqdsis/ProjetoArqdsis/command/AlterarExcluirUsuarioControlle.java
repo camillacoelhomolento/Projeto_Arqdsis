@@ -17,7 +17,7 @@ import br.usjt.arqdsis.ProjetoArqdsis.service.UsuarioService;
  * Servlet implementation class ManterClienteController
  */
 @WebServlet("/AlterarUsuario.do")
-public class AlterarExcluirUsuarioControlle extends HttpServlet {
+public class AlterarExcluirUsuarioControlle extends HttpServlet  implements Command{
     private static final long serialVersionUID = 1L;
     
     /**
@@ -106,6 +106,13 @@ public class AlterarExcluirUsuarioControlle extends HttpServlet {
     		
     		
     	}
+
+	@Override
+	public void executar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
         
     }
     
